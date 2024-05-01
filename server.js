@@ -1,8 +1,8 @@
 import express from "express";
-
 import morgan from "morgan";
 import ConnectDB from "./config/db.js";
 import dotenv from "dotenv";
+import authRoute from "./routes/authRoute.js";
 
 //configure dotenv
 dotenv.config();
@@ -16,6 +16,10 @@ ConnectDB();
 //middlewares
 app.use(express.json());
 app.use(morgan("dev"));
+
+//routes
+app.use("/authentication", authRoute);
+
 //REST API
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to the GalaxyEra</h1>");
