@@ -1,6 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../Context/auth";
 const Header = () => {
+  const [auth,setAuth] = useAuth()
+
+  const handleLogout = ()=>{
+    setAuth({
+      ...auth,
+      user:null,token:'',
+    })
+    localStorage.removeItem('auth')
+  }
   return (
     <>
       <div className="navbar bg-base-100 text-xl">
@@ -67,12 +77,17 @@ const Header = () => {
                 </ul>
               </details>
             </li>
-            <li>
-              <NavLink to={"/register"}>Register</NavLink>
+            {
+              !auth.user ? (<><li>
+                <NavLink to={"/register"}>Register</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/login"}>Login</NavLink>
+              </li></>) : (<><li>
+              <NavLink onClick={handleLogout} to={"/login"}>Logout</NavLink>
             </li>
-            <li>
-              <NavLink to={"/login"}>Login</NavLink>
-            </li>
+           </>)
+            }
             <li>
               <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="">
