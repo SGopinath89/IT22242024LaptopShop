@@ -1,16 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../Context/auth";
+import Dashboard from "./../../Pages/user/Dashboard";
 const Header = () => {
-  const [auth,setAuth] = useAuth()
+  const [auth, setAuth] = useAuth();
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     setAuth({
       ...auth,
-      user:null,token:'',
-    })
-    localStorage.removeItem('auth')
-  }
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+  };
   return (
     <>
       <div className="navbar bg-base-100 text-xl">
@@ -77,17 +79,56 @@ const Header = () => {
                 </ul>
               </details>
             </li>
-            {
-              !auth.user ? (<><li>
-                <NavLink to={"/register"}>Register</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/login"}>Login</NavLink>
-              </li></>) : (<><li>
-              <NavLink onClick={handleLogout} to={"/login"}>Logout</NavLink>
-            </li>
-           </>)
-            }
+            {!auth.user ? (
+              <>
+                <li>
+                  <NavLink to={"/register"}>Register</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/login"}>Login</NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt="Tailwind CSS Navbar component"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  >
+                    <li>
+                      <NavLink
+                        to={`/dashboard/${
+                          auth?.user?.role === 1 ? "admin" : "user"
+                        }`}
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <a>Settings</a>
+                    </li>
+                    <li>
+                      <NavLink onClick={handleLogout} to={"/login"}>
+                        Logout
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+                <li></li>
+              </>
+            )}
             <li>
               <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="">

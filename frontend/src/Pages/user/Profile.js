@@ -1,17 +1,16 @@
 import React from "react";
 import Layout from "../../Components/Layout/Layout";
 import UserMenu from "../../Components/Layout/UserMenu";
-import { useAuth } from "../../Context/auth";
-const Dashboard = () => {
-  const [auth] = useAuth();
+
+const Profile = () => {
   return (
     <>
-      <Layout title={"Dashboard"}>
+      <Layout>
         <UserMenu />
-        <div>{auth?.user?.name}</div>
+        <h1>Profile</h1>
       </Layout>
     </>
   );
 };
 
-export default Dashboard;
+export default Profile;

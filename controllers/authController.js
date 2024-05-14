@@ -4,13 +4,16 @@ import JWT from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
   try {
-    const { name, email, phone, address, password, answer } = req.body;
+    const { name, email, photo, phone, address, password, answer } = req.body;
     //validations
     if (!name) {
       return res.send({ message: "Name is Required" });
     }
     if (!email) {
       return res.send({ message: "Email is Required" });
+    }
+    if (!photo) {
+      return res.send({ message: "Photo is Required" });
     }
     if (!password) {
       return res.send({ message: "Password is Required" });
@@ -35,6 +38,7 @@ export const registerController = async (req, res) => {
     const user = await new userModel({
       name,
       email,
+      photo,
       phone,
       address,
       password: hashedPassword,
@@ -94,6 +98,7 @@ export const loginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        role: user.role,
       },
       token,
     });
@@ -107,14 +112,11 @@ export const loginController = async (req, res) => {
   }
 };
 
-
-
 //test controller
-export const testController = (req,res) => {
-  try{
-    res.send('Protected Routes');
-  }
-  catch(error){
-    res.send({error});
+export const testController = (req, res) => {
+  try {
+    res.send("Protected Routes");
+  } catch (error) {
+    res.send({ error });
   }
 };
