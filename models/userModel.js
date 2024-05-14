@@ -21,6 +21,17 @@ const userSchema = new mongoose.Schema(
         message: "Invalid email format",
       },
     },
+    photo: {
+      type: String,
+      validate: {
+        validator: (value) => {
+          // Regular expression to check file extensions (PNG, JPG, GIF)
+          const fileExtensionRegex = /\.(png|jpg|jpeg|gif)$/i;
+          return fileExtensionRegex.test(value);
+        },
+        message: "Invalid file format. Only PNG, JPG, and GIF are allowed.",
+      },
+    },
     phone: {
       type: String,
       required: true,
