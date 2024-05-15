@@ -3,6 +3,7 @@ import morgan from "morgan";
 import ConnectDB from "./config/db.js";
 import dotenv from "dotenv";
 import authRoute from "./routes/authRoute.js";
+import CategoryRoute from './routes/CategoryRoute.js'
 import cors from "cors";
 
 //configure dotenv
@@ -21,6 +22,7 @@ app.use(morgan("dev"));
 
 //routes
 app.use("/authentication", authRoute);
+app.use("/category",CategoryRoute)
 
 //REST API
 app.get("/", (req, res) => {
