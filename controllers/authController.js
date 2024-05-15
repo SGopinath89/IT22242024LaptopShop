@@ -12,9 +12,6 @@ export const registerController = async (req, res) => {
     if (!email) {
       return res.send({ message: "Email is Required" });
     }
-    if (!photo) {
-      return res.send({ message: "Photo is Required" });
-    }
     if (!password) {
       return res.send({ message: "Password is Required" });
     }
@@ -38,7 +35,6 @@ export const registerController = async (req, res) => {
     const user = await new userModel({
       name,
       email,
-      photo,
       phone,
       address,
       password: hashedPassword,
