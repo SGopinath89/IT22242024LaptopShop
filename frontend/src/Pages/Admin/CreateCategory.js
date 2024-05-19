@@ -53,7 +53,7 @@ const CreateCategory = () => {
       toast.error("Error in updating category");
     }
   };
-
+ 
   //delete category
   const handleDelete = async () => {
     try {
@@ -77,7 +77,7 @@ const CreateCategory = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/category/get-category");
-      if (data.success) {
+      if (data?.success) {
         setCategories(data.category);
       }
     } catch (error) {
@@ -120,7 +120,7 @@ const CreateCategory = () => {
             <AdminMenu />
           </div>
           <div className="w-3/4 ml-4 p-4">
-            <h1>Manage Category</h1>
+            <h1 className="font-semibold mb-4">Manage Category</h1>
             <div className="overflow-x-auto mt-4">
               <CategoryForm
                 handleSubmit={handleSubmit}
