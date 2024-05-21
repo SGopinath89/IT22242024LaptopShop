@@ -174,3 +174,24 @@ export const updateProductController = async (req, res) => {
     });
   }
 };
+
+// Filter Controller
+export const productFiltersController = async (req, res) => {
+  try {
+    const { checked } = req.body; // Correctly destructure checked categories
+    let args = {};
+    if (checked.length > 0) args.category = { $in: checked };
+    const products = await productModel.find(args);
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error filtering products",
+    });
+  }
+};
