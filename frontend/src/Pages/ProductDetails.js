@@ -31,10 +31,11 @@ const ProductDetails = () => {
         {product ? (
           <>
             <div className="card lg:card-side bg-base-100 shadow-xl">
-              <figure className="w-2/4 h-300 w-200 flex justify-center items-center p-4">
+              <figure className="w-1/4 flex justify-center items-center p-4">
                 <img
                   src={`/products/product-photo/${product._id}`}
                   alt={product.name}
+                  className="w-200 h-300 object-cover"
                 />
               </figure>
 

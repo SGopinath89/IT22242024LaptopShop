@@ -3,9 +3,12 @@ import Layout from "../Components/Layout/Layout";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../Context/cart";
+import { toast } from 'react-hot-toast';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [cart,setCart] = useCart()
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const navigate = useNavigate();
@@ -19,7 +22,9 @@ const Home = () => {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   // Fetch Categories
   const getAllCategories = async () => {
     try {
@@ -43,11 +48,11 @@ const Home = () => {
 
   useEffect(() => {
     getAllCategories();
-    getAllProducts();
+
   }, []);
 
   useEffect(() => {
-    if (!checked.length) getAllProducts();
+    if (checked.length==0) getAllProducts();
   }, [checked.length]);
 
   // Get filtered product
@@ -115,7 +120,8 @@ const Home = () => {
                     >
                       More Details
                     </button>
-                    <button className="btn btn-active btn-neutral">
+                    <button className="btn btn-active btn-neutral" onClick={()=>{setCart([...cart,product]);
+                      toast.success('Item Added to cart')}}>
                       Add to cart
                     </button>
                   </div>
