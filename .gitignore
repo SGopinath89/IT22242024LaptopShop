@@ -1,1 +1,63 @@
-node_modules
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Production
+/build
+
+# Next.js
+.next/
+out/
+
+# Build directories
+dist/
+tmp/
+temp/
+build/
+
+# Cache
+.cache/
+.parcel-cache/
+.next/
+out/
+
+# Coverage
+coverage/
+*.lcov
+*.lcov.*
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*~
+.project
+.settings/
+.metadata/
+*.iml
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
