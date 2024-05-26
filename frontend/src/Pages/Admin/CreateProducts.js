@@ -62,8 +62,8 @@ const CreateProducts = () => {
         <div className="w-1/4 ml-3">
           <AdminMenu />
         </div>
-        <div className="w-1800 ml-3 p-4">
-          <h1 className="font-semibold mb-4">Create Products</h1>
+        <div className="w-3/4 max-w-lg mx-auto">
+          <h1 className="font-semibold mb-4 text-2xl">Create Products</h1>
           <div className="w-full max-w-lg mx-auto">
             <div className="mb-4">
               <label

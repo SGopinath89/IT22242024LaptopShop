@@ -4,11 +4,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../Context/cart";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [cart,setCart] = useCart()
+  const [cart, setCart] = useCart();
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const navigate = useNavigate();
@@ -22,9 +22,11 @@ const Home = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getAllProducts();
   }, []);
+
   // Fetch Categories
   const getAllCategories = async () => {
     try {
@@ -34,6 +36,10 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getAllCategories();
+  }, []);
 
   // Filter by category
   const handleFilter = (value, id) => {
@@ -46,29 +52,24 @@ const Home = () => {
     setChecked(all);
   };
 
-  useEffect(() => {
-    getAllCategories();
-
-  }, []);
-
-  useEffect(() => {
-    if (checked.length==0) getAllProducts();
-  }, [checked.length]);
-
-  // Get filtered product
+  // Get filtered products
   const filterProduct = async () => {
-    try {
-      const { data } = await axios.post("/products/product-filters", {
-        checked,
-      });
-      setProducts(data.products); // Corrected from data.product to data.products
-    } catch (error) {
-      console.log(error);
+    if (checked.length === 0) {
+      getAllProducts();
+    } else {
+      try {
+        const { data } = await axios.post("/products/product-filters", {
+          checked,
+        });
+        setProducts(data.products); // Corrected from data.product to data.products
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   useEffect(() => {
-    if (checked.length) filterProduct();
+    filterProduct();
   }, [checked]);
 
   return (
@@ -95,7 +96,8 @@ const Home = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products?.map((product) => (
               <div
-                className="card card-compact w-full bg-base-100 shadow-xl"
+                className="card card-compact w-full bg-base-100 shadow-xl tooltip"
+                data-tip={product.name}
                 key={product._id}
               >
                 <figure>
@@ -110,8 +112,10 @@ const Home = () => {
                     className="product-link"
                   >
                     <h2 className="card-title">{product.name}</h2>
-                    <p>{product.description}</p>
-                    <p>LKR {product.price}</p>
+
+                    <p className="text-red-500 text-xl">
+                      LKR {product.price}.00
+                    </p>
                   </Link>
                   <div className="card-actions justify-end space-x-2">
                     <button
@@ -120,8 +124,13 @@ const Home = () => {
                     >
                       More Details
                     </button>
-                    <button className="btn btn-active btn-neutral" onClick={()=>{setCart([...cart,product]);
-                      toast.success('Item Added to cart')}}>
+                    <button
+                      className="btn btn-active btn-neutral"
+                      onClick={() => {
+                        setCart([...cart, product]);
+                        toast.success("Item Added to cart");
+                      }}
+                    >
                       Add to cart
                     </button>
                   </div>
