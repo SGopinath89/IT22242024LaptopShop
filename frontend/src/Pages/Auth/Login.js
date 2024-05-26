@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import Layout from "../../Components/Layout/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../Context/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [auth,setAuth] = useAuth()
+  const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   //login handle
   const handleSubmit = async (e) => {
@@ -24,10 +24,10 @@ const Login = () => {
         toast.success(res.data.message);
         setAuth({
           ...auth,
-          user:res.data.user,
-          token:res.data.token,
-        })
-        localStorage.setItem("auth",JSON.stringify(res.data))
+          user: res.data.user,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(res.data));
         navigate(location.state || "/");
       } else {
         toast.error(res.data.message);
@@ -37,82 +37,60 @@ const Login = () => {
       toast.error("Something went wrong");
     }
   };
+
   return (
     <Layout>
-      <div style={{ backgroundColor: "rgba(211, 211, 211, 0.5)", width: "35%", marginLeft: "400px", marginTop: "5vh", backdropFilter: "blur(10px)", borderRadius: "10px", boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)" }}> {/* Add a wrapper div for glass effect background */}
-  <div style={{ padding: "20px", display: "flex", justifyContent: "center" }}> {/* Add a wrapper div for form content */}
-    <form
-      classname=""
-      onSubmit={handleSubmit}
-      style={{ maxWidth: "350px" }} // Limit the form width
-    >
-      <div className="space-y-12">
-        <div>
-          <br />
-          <div className="">
-            <h1>LOGIN HERE</h1>
-            <div className="">
-              <div className=" ">
-                <div className="mt-5 grid grid-cols-4 gap-x-2 gap-y-2 sm:grid-cols-3">
-                  <div className="col-span-full">
-                    <label className="">Email</label>
-                    <div className="mt-2">
-                      <input
-                        type="email"
-                        name="emailBox"
-                        placeholder="Enter Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        id="emailBox"
-                        autoComplete="emailBox"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-full">
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                  <div className="col-span-full">
-                    <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Password
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        type="password"
-                        name="passwordBox"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        id="passwordBox"
-                        placeholder="Enter Password"
-                        autoComplete="passwordBox"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div className="relative flex flex-col items-center justify-center h-screen overflow-hidden ">
+        <div className="w-full p-6 bg-white border-t-4 border-gray-600 rounded-md shadow-md border-top lg:max-w-lg">
+          <h1 className="text-3xl font-semibold text-center text-gray-700">
+            LOGIN
+          </h1>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="label">
+                <span className="text-base label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="w-full input input-bordered"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoFocus
+              />
             </div>
-          </div>
-          <div className="mt-6 flex items-center justify-center gap-x-6">
-            <button
-              type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              LOGIN
-            </button>
-          </div>
+            <div>
+              <label className="label">
+                <span className="text-base label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                className="w-full input input-bordered"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="flex justify-between">
+              <a
+                href="#"
+                className="text-xs text-gray-600 hover:underline hover:text-blue-600"
+              >
+                Forget Password?
+              </a>
+              <a
+                href="/register"
+                className="text-xs text-gray-600 hover:underline hover:text-blue-600"
+              >
+                Don't have an account?
+              </a>
+            </div>
+            <div>
+              <button className="btn btn-block btn-neutral">Login</button>
+            </div>
+          </form>
         </div>
       </div>
-    </form>
-  </div>
-</div>
-
-
-
-
-
-
     </Layout>
   );
 };
