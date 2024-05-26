@@ -17,7 +17,7 @@ const Home = () => {
   const getAllProducts = async () => {
     try {
       const { data } = await axios.get("/products/get-products");
-      setProducts(data.products); // Corrected from data.product to data.products
+      setProducts(data.product); // Corrected from data.product to data.products
     } catch (error) {
       console.log(error);
     }
@@ -39,6 +39,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllCategories();
+    getAllProducts();
   }, []);
 
   // Filter by category
@@ -92,7 +93,7 @@ const Home = () => {
         </div>
 
         <div className="w-3/4 p-4">
-          <h1 className="mb-4">All Products</h1>
+          <h1 className="mb-4 text-2xl font-bold">All Products</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products?.map((product) => (
               <div
@@ -100,10 +101,11 @@ const Home = () => {
                 data-tip={product.name}
                 key={product._id}
               >
-                <figure>
+                <figure className="w-full h-48">
                   <img
                     src={`/products/product-photo/${product._id}`}
                     alt={product.name}
+                    className="object-cover w-full h-full"
                   />
                 </figure>
                 <div className="card-body">
@@ -112,8 +114,7 @@ const Home = () => {
                     className="product-link"
                   >
                     <h2 className="card-title">{product.name}</h2>
-
-                    <p className="text-red-500 text-xl">
+                    <p className="text-red-500 text-xl font-medium">
                       LKR {product.price}.00
                     </p>
                   </Link>

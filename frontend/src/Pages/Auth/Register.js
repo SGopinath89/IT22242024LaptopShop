@@ -43,7 +43,10 @@ const Register = () => {
     <Layout title={"Register"}>
       <div className="flex flex-col lg:flex-row justify-center items-start mt-10 mb-10 gap-10 ">
         <div className="w-full p-6 bg-white border-t-4 border-gray-600 rounded-md shadow-md border-top xl:max-w-lg ">
-          <h1 className="text-3xl font-semibold text-center text-gray-700 mb-4">
+          <h1
+            className="text-3xl font-semibold text-center text-gray-700 mb-4"
+            style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+          >
             REGISTER HERE
           </h1>
           <form className="space-y-4" onSubmit={handleSubmit}>
